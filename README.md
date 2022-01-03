@@ -61,9 +61,9 @@ Will give you access to Veracode's hmac authentication.
 Using this image you can start dynamic analysis scans, get access to findings on the platform and more.  
 
 
-## Integratiing into GitLab  
+## Integrating into GitLab  
 This documentation incudes 4 GitLab projects to show an example how to use all Veracode scanning technologies, in an autoamted way on your GitLab pipeline. There are examples on static analysis, software composition analysis, dynamic analysis and results import as GitLab issues.  
-The 3 projects are:  
+The 4 projects are:  
   
 1. [Veracode-manual-for-GitLab](https://gitlab.com/veracode-gitlab-manual/veracode-manual-for-gitlab)  
 This documentation.  
@@ -72,10 +72,66 @@ yml templates to be used on your pipeline.
 3. [Veracode-helpers()https://gitlab.com/veracode-gitlab-manual/veracode-helpers)  
 Helper scripts for very specific tasks.  
 4. [Veracode-GitLab-manual-MyApp](https://gitlab.com/veracode-gitlab-manual/veracode-gitlab-manual-myapp)  
-A demo java application, with a full yml pipeline and all possible scanning technologies set up.  
+A demo java application, with a full yml pipeline and all possible scanning technologies set up. As well integrating reporting functionality.  
 
 ### Scanning  
-**Static Analysis**
+This part will explain how you actually do the scanning as an autoamted part of your pipeline.  
+The [yml file](https://gitlab.com/veracode-gitlab-manual/veracode-gitlab-manual-myapp/-/blob/main/.gitlab-ci.yml) of the Java demo application is using includes for the yml temaplates from [Pipeline-Templates](https://gitlab.com/veracode-gitlab-manual/pipeline-templates)  
+```yml
+include:
+    - project: 'veracode-gitlab-manual/Pipeline-Templates'
+      ref: main
+      file: '/Veracode-Scanning/veraocde_sast_policy_scan.yml'
+    - project: 'veracode-gitlab-manual/Pipeline-Templates'
+      ref: main
+      file: '/Veracode-Scanning/veracode_sast_sandbox_scan.yml'
+    - project: 'veracode-gitlab-manual/Pipeline-Templates'
+      ref: main
+      file: '/Veracode-Scanning/veracode_sast_pipeline_scan.yml'
+    - project: 'veracode-gitlab-manual/Pipeline-Templates'
+      ref: main
+      file: '/Veracode-Scanning/veracode_sca_application_scan.yml'
+    - project: 'veracode-gitlab-manual/Pipeline-Templates'
+      ref: main
+      file: '/Veracode-Scanning/veracode_sca_docker_scan.yml'
+    - project: 'veracode-gitlab-manual/Pipeline-Templates'
+      ref: main
+      file: '/Veracode-Scanning/veracode_dast_rescan.yml'
+``` 
+Please refere to [Pipeline-Templates](https://gitlab.com/veracode-gitlab-manual/pipeline-templates) for a full documentation how these tempaltes are build. As well please refer to the section **Tamplating** further down to understand why it should be done in this specifc way.  
+  
+**Static Analysis**  
+For static analysis we again need to look at the 3 different static scanning possibilities. Please also refer to the above section of Veracode Scanning Technologies - Static Analysis.  
+  
+1. Pipeline Scan  
+the yml part of the pipeline scan defines when the Veracode Pipeline Scan should run. In this case it should run with every push on the feature branch 'my-feature-branch' and not on scheduled runs.  
+As the Veracode Pipeline Scan is desgined to run faster compared to the Veracode Sandbox or Policy Scan, you may run it with every single commit to your feature branch. However, that will not always be possible and strongly depends on the scan time and how long you allow to wait for a push to finish.  
+This example shows it will use the above mentioned include [veracode_sast_pipeline_scan.yml](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_sast_pipeline_scan.yml). You need to provide a few variables for it work properly.  
+- VERACODE_FILEPATH  
+The file path to the binary/binaries to be uploaded for scanning.  
+- VERACODE_POLICYNAME  
+The name of a policy you want to download upfront and use to rate the findings accordingly.  
+- VERACODE_BASELINE_FILENAME  
+A baseline file to sort out previous findings and only report what is net-new on this single commit/push from a developer.  
+  
+```yml
+veracode_sast_pipeline_scan:
+    stage: Security_Scan
+    only:
+        - my-feature-branch
+        - pushes
+    except:
+        - schedules
+    extends: .veracode_sast_pipeline_scan
+    variables:
+        VERACODE_FILEPATH: 'target/verademo.war'
+        VERACODE_POLICYNAME: 'VeraDemo_Policy'
+        VERACODE_BASELINE_FILENAME: pipeline-baseline.json
+```
+  
+2. Sandbox Scan  
+  
+3. Policy Scan  
 
 **Software Composition Analysis**
 
