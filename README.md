@@ -61,7 +61,18 @@ Will give you access to Veracode's hmac authentication. https://hub.docker.com/r
 Using this image you can start dynamic analysis scans, get access to findings on the platform and more.  
 
 
-## Integratiing into GitLab
+## Integratiing into GitLab  
+This documentation incudes 4 GitLab projects to show an example how to use all Veracode scanning technologies, in an autoamted way on your GitLab pipeline. There are examples on static analysis, software composition analysis, dynamic analysis and results import as GitLab issues.  
+The 3 projects are:  
+  
+1. Veracode-manual-for-GitLab - https://gitlab.com/veracode-gitlab-manual/veracode-manual-for-gitlab  
+This documentation.  
+2. Pipeline-Templates - https://gitlab.com/veracode-gitlab-manual/pipeline-templates  
+yml templates to be used on your pipeline.  
+3. Veracode-helpers - https://gitlab.com/veracode-gitlab-manual/veracode-helpers  
+Helper scripts for very specific tasks.  
+4. Veracode-GitLab-manual-MyApp - https://gitlab.com/veracode-gitlab-manual/veracode-gitlab-manual-myapp  
+A demo java application, with a full yml pipeline and all possible scanning technologies set up.  
 
 ### Scanning  
 **Static Analysis**
