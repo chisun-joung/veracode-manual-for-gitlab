@@ -79,11 +79,17 @@ For all scanning and reporting work properly you need to set up a few GitLab env
 ![GitLab CI/CD Variables](GitLab_CICD_Variables.png)  
 6 Variables are the required minimum for this example to work properly.  
 - VERACODE_API_ID  
+The Veraocde API ID for your API credentials. This is used by most of the tasks to authenticat and check the user roles for authorization. Please refere to this documentation [Generating Veracode API Credentials](https://docs.veracode.com/r/t_create_api_creds)  
 - VERACODE_API_KEY  
+The Veraocde API Secret Key for your API credentials. This is used by most of the tasks to authenticat and check the user roles for authorization. Please refere to this documentation [Generating Veracode API Credentials](https://docs.veracode.com/r/t_create_api_creds)  
 - SRCCLR_API_TOKEN  
+The API token used to authenticate and authorize the usage of Veraocde's Agent Based Software Composition Analysis solution. Please refer to this full documentation [Using the Veracode SCA Agent]{https://docs.veracode.com/r/c_sc_agent_usage}.  
 - PRIVATE_TOKEN  
+Your GitLab private token that is required for for all tass that are able to create issues. Please refer to GitLab's official documentation [Personal access tokens]{https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html}. This will be picked up automatically by Veracode's Pipeline Scan, but need to be set for some other reporting tasks.  
 - JSP_ROOT  
+If you are scanning Java applications, the scanner may don#t see the real folder where your JSP files are stored. In this example it is set to `/src/main/webapp/`.  
 - SRC_ROOT   
+If you are scanning Java applications, the scanner may don#t see the real folder where your source files are stored. In this example it is set to `/src/main/java/`.  
 
 ### Scanning  
 This part will explain how you actually do the scanning as an autoamted part of your pipeline.  
