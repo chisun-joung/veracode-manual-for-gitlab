@@ -114,7 +114,6 @@ The name of a policy you want to download upfront and use to rate the findings a
 - VERACODE_BASELINE_FILENAME  
 A baseline file to sort out previous findings and only report what is net-new on this single commit/push from a developer.  
   
-[veracode_sast_pipeline_scan](https://gitlab.com/veracode-gitlab-manual/veracode-gitlab-manual-myapp/-/blob/main/.gitlab-ci.yml#L73-L84)
 ```yml
 veracode_sast_pipeline_scan:
     stage: Security_Scan
@@ -131,8 +130,52 @@ veracode_sast_pipeline_scan:
 ```
   
 2. Sandbox Scan  
+The yml part of the sandbox scan defines when the Veracode Sandbox Scan should run. In this case it should run on a scheduled basis on the feature branch `my-feature-branch` and not on pushes and not on the `main` branch.  
+This example shows it will use the above mentioned include [veracode_sast_sandbox_scan](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_sast_sandbox_scan.yml). You need to provide a one variables for it work properly.  
+- VERACODE_FILEPATH  
+The file path to the binary/binaries to be uploaded for scanning.  
+  
+```yml
+veracode_sast_sandbox_scan:
+    stage: Security_Scan
+    extends: .veracode_sast_sandbox_scan
+    only:
+        refs: 
+            - my-feature-branch
+            - schedules
+        variables: 
+            - $CI_COMMIT_BRANCH == "my-feature-branch"
+    except:
+        refs:
+            - main
+            - pushes
+    variables:
+        VERACODE_FILEPATH: target/verademo.war
+```
   
 3. Policy Scan  
+The yml part of the policy scan defines when the Veracode Policy Scan should run. In this case it should run on a scheduled basis on the `main` branch and not on pushes and not on the `my-feature-branch` branch.  
+This example shows it will use the above mentioned include [veracode_sast_sandbox_scan](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_sast_sandbox_scan.yml). You need to provide a one variables for it work properly.  
+- VERACODE_FILEPATH  
+The file path to the binary/binaries to be uploaded for scanning.  
+```yml
+veracode_sast_policy_scan:
+    stage: Security_Scan
+    extends: .veracode_sast_policy_scan
+    only:
+        refs:
+            - main
+            - merge_requets
+            - schedules
+        variables:
+            - $CI_COMMIT_BRANCH == "main"
+    except:
+        refs:
+            - my-feature-branch
+            - pushes
+    variables:
+        VERACODE_FILEPATH: target/verademo.war  
+```
 
 **Software Composition Analysis**
 
