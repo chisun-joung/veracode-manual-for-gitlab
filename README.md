@@ -76,7 +76,7 @@ A demo java application, with a full yml pipeline and all possible scanning tech
   
 ### General GitLab environment variables  
 For all scanning and reporting work properly you need to set up a few GitLab environment variable that will be (automatically) picked up by the pipeline tasks. The configuration will be done on your repository at Settings -> CI/CD -> Variables.  
-(GitLab_CICD_Variables.png)  
+![GitLab CI/CD Variables](GitLab_CICD_Variables.png)  
 6 Variables are the required minimum for this example to work properly.  
 - VERACODE_API_ID  
 - VERACODE_API_KEY  
