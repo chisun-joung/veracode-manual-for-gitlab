@@ -200,7 +200,38 @@ veracode_sast_policy_scan:
         VERACODE_FILEPATH: target/verademo.war  
 ```
 
-**Software Composition Analysis**
+**Software Composition Analysis**  
+This example will feature Veracode's Agent Based SCA solution. It can be use for 2 different type of scans.  
+1. **Scan 3rd party components of your application**  
+This example shows it will use the above mentioned include [veracode_sca_application_scan](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_sca_application_scan.yml). This task will run whenever the pipeline is hit. Usually this is a pretty fast scan and won't affect the pipeline run very much.   
+
+Example yml  
+```yml
+veracode_sca_application_scan:
+    stage: Security_Scan
+    extends: .veracode_sca_application_scan
+```
+  
+2. **OS component scan of yyour docker containers.**  
+This example shows it will use the above mentioned include [veracode_sca_docker_scan](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_sca_docker_scan.yml). In this case it should run on a scheduled basis, with merge_request, on the feature branch `my-feature-branch` and on the `main` branch, but not on pushes. You need to provide a one variables for it work properly.  
+- DOCKER_IMAGE_NAME  
+The name of a reachable docker image to be scanned..  
+
+Example yml  
+```yml
+veracode_sca_docker_scan:
+    stage: Security_Scan
+    extends: .veracode_sca_docker_scan
+    only:
+        - my-feature-branch
+        - main
+        - merge_requets
+        - schedules
+    except:
+        - pushes
+    variables:
+        DOCKER_IMAGE_NAME: 'juliantotzek/verademo1-tomcat'
+```
 
 **Dynamic Scanning**
 
