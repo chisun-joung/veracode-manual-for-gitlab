@@ -46,7 +46,20 @@ Every organization is doing this a bit differently, depending on how their proce
 PICTURE PROCESS
 
 
-## Pre-built docker images
+## Pre-built docker images  
+Veracode released and maintain a set of public Docker Images which are available at DockerHub. There are 3 docker images available, that are all used on this example documentation.  
+
+1. api-wrapper-java docker image  
+Will give you access to the Veracode Java wrapper. https://hub.docker.com/r/veracode/api-wrapper-java  
+Using this image you can start static analysis scans, policy and sandbox scans.  
+  
+2. pipeline-scan docker image  
+Will give you access to the Veracode Pipeline Scan. https://hub.docker.com/r/veracode/pipeline-scan  
+Using this image you can start pipeline scan scans.  
+  
+3. api-signing docker image  
+Will give you access to Veracode's hmac authentication. https://hub.docker.com/r/veracode/api-signing  
+Using this image you can start dynamic analysis scans, get access to findings on the platform and more.  
 
 
 ## Integratiing into GitLab
