@@ -42,7 +42,7 @@ Both types of scan will be run and configured the exact same way.
 The picture below should highlight in a visual way whcih scan type runs at which stage of your code. It also is "only" Veracode's idea how it makes sense to impletment a good process to application security testing.  
 Every organization is doing this a bit differently, depending on how their processes are set up. Veracode gives you the felxibilitxy to choose which scan type should run where on your different stages of your pipeline and your code.  
   
-PICTURE PROCESS
+![GitLab Scanning Process](Scanning_process.png)  
 
 
 ## Pre-built docker images  
@@ -69,7 +69,7 @@ The 4 projects are:
 This documentation.  
 2. [Pipeline-Templates](https://gitlab.com/veracode-gitlab-manual/pipeline-templates)  
 yml templates to be used on your pipeline.  
-3. [Veracode-helpers()https://gitlab.com/veracode-gitlab-manual/veracode-helpers)  
+3. [Veracode-helpers](https://gitlab.com/veracode-gitlab-manual/veracode-helpers)  
 Helper scripts for very specific tasks.  
 4. [Veracode-GitLab-manual-MyApp](https://gitlab.com/veracode-gitlab-manual/veracode-gitlab-manual-myapp)  
 A demo java application, with a full yml pipeline and all possible scanning technologies set up. As well integrating reporting functionality.  
@@ -201,7 +201,7 @@ veracode_sast_policy_scan:
 ```
 
 **Software Composition Analysis**  
-This example will feature Veracode's Agent Based SCA solution. It can be use for 2 different type of scans.  
+These examples will feature Veracode's Agent Based SCA solution. It can be use for 2 different type of scans.  
 1. **Scan 3rd party components of your application**  
 This example shows it will use the above mentioned include [veracode_sca_application_scan](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_sca_application_scan.yml). This task will run whenever the pipeline is hit. Usually this is a pretty fast scan and won't affect the pipeline run very much.   
 
@@ -233,15 +233,79 @@ veracode_sca_docker_scan:
         DOCKER_IMAGE_NAME: 'juliantotzek/verademo1-tomcat'
 ```
 
-**Dynamic Scanning**
+**Dynamic Scanning**  
+This example will show how to re-start a pre-configured dyanmic analysis. It doesn't matter if that is a standard/single page web application scan or an API scan. Both are configured the exact same way.  
+This example shows it will use the above mentioned include [veracode_dast_rescan](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_dast_rescan.yml). In this case it should run on a scheduled basis, with merge_request, on the feature branch `my-feature-branch` and on the `main` branch, but not on pushes.
+  
+Example yml
+```yml
+veracode_dast_rescan:
+    stage: Dynamic_Analysis
+    extends: .veracode_dast_rescan
+    only:
+        - main
+        - my-feature-branch
+        - merge_requets
+        - schedules
+    except:
+        - pushes
+```
 
-### Reporting
-**Static Scan Reporting**
+### Reporting  
+For the reporting part 2 external Veracode Community projects are used.  
+- [VeracodeSASTResultsImport](https://gitlab.com/julz0815/veracodesastresultsimport)  
+- [SCAResultsReport](https://gitlab.com/julz0815/scaresultsreport)  
+The full documentation can be found on those repositories as well on [Veracode-helpers](https://gitlab.com/veracode-gitlab-manual/veracode-helpers) that is part of this documentation.  
 
-**Software Composition Analysis Reporting**
+**Static Scan Reporting**  
+We again need to differantiate between the 3 static scan types available.  
+  
+1. Pipeline Scan  
+the Veracode Pipeline Scan automaticall brings the fucntionality to create GitLab issues. The feature flag that is used on the scan is `--gl_issue_generation true`. This is fully documented on the the Veracode Help Center [Pipeline Scan Command Parameters](https://docs.veracode.com/r/r_pipeline_scan_commands), or on the templates repository that is part of this documentation [Pipeline-Templates](https://gitlab.com/veracode-gitlab-manual/pipeline-templates).  
+  
+2. Sandbox Scan  
+This example shows it will use the above mentioned include [veracode_sast_sandbox_scan_reporting](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Reporting/veracode_sast_sandbox_scan_reporting.yml). In this case it should run on a scheduled basis on the feature branch `my-feature-branch` and not on pushes and not on the `main` branch.
+  
+Example yml  
+```yml
+veracode_sast_sandbox_scan_reporting:
+    stage: Scan_Reporting
+    extends: .veracode_sast_sandbox_scan_reporting
+    only:
+        refs: 
+            - my-feature-branch
+            - schedules
+        variables: 
+            - $CI_COMMIT_BRANCH == "my-feature-branch"
+    except:
+        refs:
+            - main
+            - pushes
+```
+3. Policy Scan  
+This example shows it will use the above mentioned include [veracode_sast_policy_scan_reporting](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Reporting/veracode_sast_policy_scan_reporting.yml). In this case it should run on a scheduled basis on the `main` branch and not on pushes and not on the `my-feature-branch` branch.  
+  
+Example yml  
+```yml
+veracode_sast_policy_scan_reporting:
+    stage: Scan_Reporting
+    extends: .veracode_sast_policy_scan_reporting
+    only:
+        refs:
+            - main
+            - merge_requets
+            - schedules
+        variables:
+            - $CI_COMMIT_BRANCH == "main"
+    except:
+        refs:
+            - my-feature-branch
+            - pushes
+```
 
-
-
+**Software Composition Analysis Reporting**  
+For Software Composition Analysis Reporting we don't need to differentiat between 3rd party component scan of your applications or on docker OS component scans. Both will work the same way and are part of the actual scan task from the templates section [Pipeline-Templates](https://gitlab.com/veracode-gitlab-manual/pipeline-templates).  
+No extra task is required for this. 
 
 ## Scaling in an organization
 
