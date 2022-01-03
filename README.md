@@ -8,8 +8,8 @@ Using this documentation you will be able to automte static, SCA and dynamic sca
 
 
 ## Veracode Scanning Techologies
-**Static Analysis**  
-### Static analysis - SAST  
+### Static Analysis  
+**Static analysis - SAST**  
 Veracode offers 3 types of static analysis  
 1. Pipeline Scan 
 2. Sandbox Scan  
