@@ -9,7 +9,6 @@ Using this documentation you will be able to automte static, SCA and dynamic sca
 
 ## Veracode Scanning Techologies
 ### Static Analysis  
-**Static analysis - SAST**  
 Veracode offers 3 types of static analysis  
 1. Pipeline Scan 
 2. Sandbox Scan  
@@ -27,7 +26,7 @@ Similar to the Pipeline Scan, the Sdandbox scan runs in early stages of your cod
 3. Policy Scan  
 The Policy Scan is the last gate to production. It should scan the full application and according to the policy compliance you can decide wether the application is allowed to be deployed or not.  
 
-**Software Composition Analysis**  
+### Software Composition Analysis  
 Software Composition Analysis at Veracode can be done in 2 different ways.  
   
 1. With static analysis (Upload and Scan)  
@@ -35,7 +34,7 @@ Software Composition Analysis at Veracode can be done in 2 different ways.
   
 On this documentation we will mainly talk about the Agent Based Scan, that could run on every stage of your code.  
 
-**Dynamic Analysis**  
+### Dynamic Analysis  
 Veracode#s Dynamic Analyssis gives you the possibility to scan standard or single page web applications and as well API's while they are running either at a stageing environment or at production.  
 Both types of scan will be run and configured the exact same way.  
   
