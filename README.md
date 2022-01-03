@@ -98,13 +98,13 @@ include:
       ref: main
       file: '/Veracode-Scanning/veracode_dast_rescan.yml'
 ``` 
-Please refere to [Pipeline-Templates](https://gitlab.com/veracode-gitlab-manual/pipeline-templates) for a full documentation how these tempaltes are build. As well please refer to the section **Tamplating** further down to understand why it should be done in this specifc way.  
+Please refere to [Pipeline-Templates](https://gitlab.com/veracode-gitlab-manual/pipeline-templates) for a full documentation how these tempaltes are build. As well please refer to the section **Templating** further down to understand why it should be done in this specifc way.  
   
 **Static Analysis**  
 For static analysis we again need to look at the 3 different static scanning possibilities. Please also refer to the above section of Veracode Scanning Technologies - Static Analysis.  
   
 1. Pipeline Scan  
-the yml part of the pipeline scan defines when the Veracode Pipeline Scan should run. In this case it should run with every push on the feature branch 'my-feature-branch' and not on scheduled runs.  
+The yml part of the pipeline scan defines when the Veracode Pipeline Scan should run. In this case it should run with every push on the feature branch 'my-feature-branch' and not on scheduled runs.  
 As the Veracode Pipeline Scan is desgined to run faster compared to the Veracode Sandbox or Policy Scan, you may run it with every single commit to your feature branch. However, that will not always be possible and strongly depends on the scan time and how long you allow to wait for a push to finish.  
 This example shows it will use the above mentioned include [veracode_sast_pipeline_scan.yml](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_sast_pipeline_scan.yml). You need to provide a few variables for it work properly.  
 - VERACODE_FILEPATH  
@@ -114,6 +114,7 @@ The name of a policy you want to download upfront and use to rate the findings a
 - VERACODE_BASELINE_FILENAME  
 A baseline file to sort out previous findings and only report what is net-new on this single commit/push from a developer.  
   
+[veracode_sast_pipeline_scan](https://gitlab.com/veracode-gitlab-manual/veracode-gitlab-manual-myapp/-/blob/main/.gitlab-ci.yml#L73-L84)
 ```yml
 veracode_sast_pipeline_scan:
     stage: Security_Scan
