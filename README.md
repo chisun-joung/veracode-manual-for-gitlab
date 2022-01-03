@@ -48,16 +48,16 @@ PICTURE PROCESS
 ## Pre-built docker images  
 Veracode released and maintain a set of public Docker Images which are available at DockerHub. There are 3 docker images available, that are all used on this example documentation.  
 
-1. api-wrapper-java docker image  
-Will give you access to the Veracode Java wrapper. https://hub.docker.com/r/veracode/api-wrapper-java  
+1. [api-wrapper-java docker image](https://hub.docker.com/r/veracode/api-wrapper-java)  
+Will give you access to the Veracode Java wrapper.   
 Using this image you can start static analysis scans, policy and sandbox scans.  
   
-2. pipeline-scan docker image  
-Will give you access to the Veracode Pipeline Scan. https://hub.docker.com/r/veracode/pipeline-scan  
+2. [pipeline-scan docker image](https://hub.docker.com/r/veracode/pipeline-scan)  
+Will give you access to the Veracode Pipeline Scan.   
 Using this image you can start pipeline scan scans.  
   
-3. api-signing docker image  
-Will give you access to Veracode's hmac authentication. https://hub.docker.com/r/veracode/api-signing  
+3. [api-signing docker image](https://hub.docker.com/r/veracode/api-signing)  
+Will give you access to Veracode's hmac authentication.   
 Using this image you can start dynamic analysis scans, get access to findings on the platform and more.  
 
 
@@ -65,13 +65,13 @@ Using this image you can start dynamic analysis scans, get access to findings on
 This documentation incudes 4 GitLab projects to show an example how to use all Veracode scanning technologies, in an autoamted way on your GitLab pipeline. There are examples on static analysis, software composition analysis, dynamic analysis and results import as GitLab issues.  
 The 3 projects are:  
   
-1. Veracode-manual-for-GitLab - https://gitlab.com/veracode-gitlab-manual/veracode-manual-for-gitlab  
+1. [Veracode-manual-for-GitLab](https://gitlab.com/veracode-gitlab-manual/veracode-manual-for-gitlab)  
 This documentation.  
-2. Pipeline-Templates - https://gitlab.com/veracode-gitlab-manual/pipeline-templates  
+2. [Pipeline-Templates](https://gitlab.com/veracode-gitlab-manual/pipeline-templates)  
 yml templates to be used on your pipeline.  
-3. Veracode-helpers - https://gitlab.com/veracode-gitlab-manual/veracode-helpers  
+3. [Veracode-helpers()https://gitlab.com/veracode-gitlab-manual/veracode-helpers)  
 Helper scripts for very specific tasks.  
-4. Veracode-GitLab-manual-MyApp - https://gitlab.com/veracode-gitlab-manual/veracode-gitlab-manual-myapp  
+4. [Veracode-GitLab-manual-MyApp](https://gitlab.com/veracode-gitlab-manual/veracode-gitlab-manual-myapp)  
 A demo java application, with a full yml pipeline and all possible scanning technologies set up.  
 
 ### Scanning  
