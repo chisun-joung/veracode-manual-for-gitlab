@@ -75,6 +75,15 @@ Helper scripts for very specific tasks.
 A demo java application, with a full yml pipeline and all possible scanning technologies set up. As well integrating reporting functionality.  
   
 ### General GitLab environment variables  
+For all scanning and reporting work properly you need to set up a few GitLab environment variable that will be (automatically) picked up by the pipeline tasks. The configuration will be done on your repository at Settings -> CI/CD -> Variables.  
+(GitLab_CICD_Variables.png)  
+6 Variables are the required minimum for this example to work properly.  
+- VERACODE_API_ID  
+- VERACODE_API_KEY  
+- SRCCLR_API_TOKEN  
+- PRIVATE_TOKEN  
+- JSP_ROOT  
+- SRC_ROOT   
 
 ### Scanning  
 This part will explain how you actually do the scanning as an autoamted part of your pipeline.  
@@ -107,7 +116,7 @@ Please refere to [Pipeline-Templates](https://gitlab.com/veracode-gitlab-manual/
 **Static Analysis**  
 For static analysis we again need to look at the 3 different static scanning possibilities. Please also refer to the above section of Veracode Scanning Technologies - Static Analysis.  
   
-1. Pipeline Scan  
+1. **Pipeline Scan**  
 The yml part of the pipeline scan defines when the Veracode Pipeline Scan should run. In this case it should run with every push on the feature branch 'my-feature-branch' and not on scheduled runs.  
 As the Veracode Pipeline Scan is desgined to run faster compared to the Veracode Sandbox or Policy Scan, you may run it with every single commit to your feature branch. However, that will not always be possible and strongly depends on the scan time and how long you allow to wait for a push to finish.  
 This example shows it will use the above mentioned include [veracode_sast_pipeline_scan.yml](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_sast_pipeline_scan.yml). You need to provide a few variables for it work properly.  
@@ -134,7 +143,7 @@ veracode_sast_pipeline_scan:
         VERACODE_BASELINE_FILENAME: pipeline-baseline.json
 ```
   
-2. Sandbox Scan  
+2. **Sandbox Scan**  
 The yml part of the sandbox scan defines when the Veracode Sandbox Scan should run. In this case it should run on a scheduled basis on the feature branch `my-feature-branch` and not on pushes and not on the `main` branch.  
 This example shows it will use the above mentioned include [veracode_sast_sandbox_scan](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_sast_sandbox_scan.yml). You need to provide a one variables for it work properly.  
 - VERACODE_FILEPATH  
@@ -159,7 +168,7 @@ veracode_sast_sandbox_scan:
         VERACODE_FILEPATH: target/verademo.war
 ```
   
-3. Policy Scan  
+3. **Policy Scan**  
 The yml part of the policy scan defines when the Veracode Policy Scan should run. In this case it should run on a scheduled basis on the `main` branch and not on pushes and not on the `my-feature-branch` branch.  
 This example shows it will use the above mentioned include [veracode_sast_policyscan](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_sast_policy_scan.yml). You need to provide a one variables for it work properly.  
 - VERACODE_FILEPATH  
