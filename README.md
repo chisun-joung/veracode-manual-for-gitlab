@@ -73,10 +73,14 @@ yml templates to be used on your pipeline.
 Helper scripts for very specific tasks.  
 4. [Veracode-GitLab-manual-MyApp](https://gitlab.com/veracode-gitlab-manual/veracode-gitlab-manual-myapp)  
 A demo java application, with a full yml pipeline and all possible scanning technologies set up. As well integrating reporting functionality.  
+  
+### General GitLab environment variables  
 
 ### Scanning  
 This part will explain how you actually do the scanning as an autoamted part of your pipeline.  
 The [yml file](https://gitlab.com/veracode-gitlab-manual/veracode-gitlab-manual-myapp/-/blob/main/.gitlab-ci.yml) of the Java demo application is using includes for the yml temaplates from [Pipeline-Templates](https://gitlab.com/veracode-gitlab-manual/pipeline-templates)  
+  
+Example yml  
 ```yml
 include:
     - project: 'veracode-gitlab-manual/Pipeline-Templates'
@@ -114,6 +118,7 @@ The name of a policy you want to download upfront and use to rate the findings a
 - VERACODE_BASELINE_FILENAME  
 A baseline file to sort out previous findings and only report what is net-new on this single commit/push from a developer.  
   
+Example yml  
 ```yml
 veracode_sast_pipeline_scan:
     stage: Security_Scan
@@ -135,6 +140,7 @@ This example shows it will use the above mentioned include [veracode_sast_sandbo
 - VERACODE_FILEPATH  
 The file path to the binary/binaries to be uploaded for scanning.  
   
+Example yml  
 ```yml
 veracode_sast_sandbox_scan:
     stage: Security_Scan
@@ -155,9 +161,11 @@ veracode_sast_sandbox_scan:
   
 3. Policy Scan  
 The yml part of the policy scan defines when the Veracode Policy Scan should run. In this case it should run on a scheduled basis on the `main` branch and not on pushes and not on the `my-feature-branch` branch.  
-This example shows it will use the above mentioned include [veracode_sast_sandbox_scan](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_sast_sandbox_scan.yml). You need to provide a one variables for it work properly.  
+This example shows it will use the above mentioned include [veracode_sast_policyscan](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Scanning/veracode_sast_policy_scan.yml). You need to provide a one variables for it work properly.  
 - VERACODE_FILEPATH  
 The file path to the binary/binaries to be uploaded for scanning.  
+  
+Example yml  
 ```yml
 veracode_sast_policy_scan:
     stage: Security_Scan
@@ -185,6 +193,8 @@ veracode_sast_policy_scan:
 **Static Scan Reporting**
 
 **Software Composition Analysis Reporting**
+
+
 
 
 ## Scaling in an organization
