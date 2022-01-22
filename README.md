@@ -1,8 +1,9 @@
+<img src="https://help.veracode.com/internal/api/webapp/header/logo" width="200" /><br>  
+  
 # Veracode-manual-for-GitLab
 
-
-
-## Introduction  
+## Overview
+  
 This documentation should help Veracode customers to understand how they ca integrate Veracode scanning technologies into GitLab. It is almost universal to many other CI/CD tools, but this documentation is mainly focused on GitLab and it's specifics.  
 Using this documentation you will be able to automte static, SCA and dynamic scanning from within your GitLab pipeline. As well you will learn how to scale application security testing in a larger organization with a lot of repositories. 
 
@@ -308,8 +309,18 @@ For Software Composition Analysis Reporting we don't need to differentiat betwee
 No extra task is required for this. 
 
 ## Scaling in an organization
-
-### Templating
+  
+The above example explains how to help multiple project and repositories scan their code with the different Veracode technologies. The main part about how to scale the scanning approach is templating that is described on the above documentation.  
+  
+Organizations have a few possibilities to start and rollout application security scanning.  
+  
+1. Fork the templates and helpers form [Veracode Pipeline Templates](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/) into one of your own repositories 
+2. Use an external include from that repository 
+3. Create your own templates repository and adapt the yml templates to your very specific needs. 
+  
+1 and 3 it most probably the best way to approach this.  
+  
+Using this approach each project can very easily include the diffrent scanning or reporting teamplates exactly where they need them. They only need to provide a few required options to run the desired task. Therefore the pipeline configuration will become very simple and strieght forward.  
 
 
 
