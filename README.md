@@ -322,7 +322,7 @@ Organizations have a few possibilities to start and rollout application security
   
 Using this approach each project can very easily include the diffrent scanning or reporting teamplates exactly where they need them. They only need to provide a few required options to run the desired task. Therefore the pipeline configuration will become very simple and strieght forward.  
   
-## working with the Pipeline-Scan baseline file  
+## Working with the Pipeline-Scan baseline file  
   
 The Pipeline Scan provides the ability to set a baseline of known security findings. It stores these findings in a JSON file called the baseline or baseline file. The Pipeline Scan can compare discovered findings against the baseline file to identify new findings.  
   
