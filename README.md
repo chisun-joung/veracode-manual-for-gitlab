@@ -321,6 +321,27 @@ Organizations have a few possibilities to start and rollout application security
 1 and 3 it most probably the best way to approach this.  
   
 Using this approach each project can very easily include the diffrent scanning or reporting teamplates exactly where they need them. They only need to provide a few required options to run the desired task. Therefore the pipeline configuration will become very simple and strieght forward.  
-
-
-
+  
+## working with the Pipeline-Scan baseline file  
+  
+The Pipeline Scan provides the ability to set a baseline of known security findings. It stores these findings in a JSON file called the baseline or baseline file. The Pipeline Scan can compare discovered findings against the baseline file to identify new findings.  
+  
+During scanning, the Pipeline Scan ignores the findings in a baseline file and only uses the file to identify new findings. For a CI/CD workflow, you can decide whether any new findings outside of your baseline are important enough to "break the build". Then, your team can determine a mitigation strategy for addressing these findings before moving the code to the next phase in your development pipeline.  
+  
+By default, after each scan, the Pipeline Scan saves the scan results to a results.json file. Because results.json is a standard JSON file, which you can safely rename, containing all the findings information from your scan results, you can set this file as the baseline for the scanned application.  
+  
+For example, you can run the Pipeline Scan at the command line with the --baseline_file parameter and the name of your JSON file. The Pipeline Scan scans against that JSON file to report on any new findings.  
+  
+## Merge Request Approval  
+  
+As the static scan tasks and SCA scan tasks using the pipeline security scan report generation, this information can be reviewed on merge requests. In this example merge request approval is set up for identified vulnerabilities. That can be found on Settings – General – Merge request approvals.  
+  
+![GitLab Merge Request Approval Seetings](MergeRequestApprovalSettings.png)  
+  
+On the merge request itself the security findings from the security reports will also be displayed before they need to be approved.  
+  
+![GitLab Merge Request Approval](MergeRequestApproval.png)  
+  
+You could also imagine a pipeline to run when this approval is executed, that will use the Veracode API's and autogenerate a mitigation for each finding that was approved.  
+  
+This functionality is based on the GitLab Ultimate License.  
