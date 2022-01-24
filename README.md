@@ -332,6 +332,8 @@ By default, after each scan, the Pipeline Scan saves the scan results to a resul
   
 For example, you can run the Pipeline Scan at the command line with the --baseline_file parameter and the name of your JSON file. The Pipeline Scan scans against that JSON file to report on any new findings.  
   
+An example can found at [Working with a baseline file](https://gitlab.com/veracode-gitlab-manual/pipeline-templates/-/blob/main/Veracode-Reporting/pipeline-scan-baseline-file-generation-commit.yml). The example will generate a baseline file and commit it back to a specified reporsitory. The include will work the exact same way as described for the other yml examples.  
+  
 ## Merge Request Approval  
   
 As the static scan tasks and SCA scan tasks using the pipeline security scan report generation, this information can be reviewed on merge requests. In this example merge request approval is set up for identified vulnerabilities. That can be found on Settings – General – Merge request approvals.  
