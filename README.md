@@ -349,4 +349,4 @@ You could also imagine a pipeline to run when this approval is executed, that wi
 This functionality is based on the GitLab Ultimate License.  
   
 ## License
-[LICENSE](license) file for details
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](license)file for details
