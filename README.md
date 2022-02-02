@@ -347,3 +347,6 @@ On the merge request itself the security findings from the security reports will
 You could also imagine a pipeline to run when this approval is executed, that will use the Veracode API's and autogenerate a mitigation for each finding that was approved.  
   
 This functionality is based on the GitLab Ultimate License.  
+  
+## License
+[LICENSE](license) file for details
