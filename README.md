@@ -21,7 +21,7 @@ All 3 are run on different needs and have different purposes, all are based on t
 The Veracode Pipeline Scan was desgined as a fast feedabck tool for developers and may runs with every single commit. It can rate in very early stages what are the policy relevant findings a developer need to fix in order to achieve policy compliance later on. As well it gives you the possibility to see net-new findings of a single commit.  
 It can scan the full application or smaller parts that have canged.  
   
-2. Sadbox Scan  
+2. Sandbox Scan  
 Similar to the Pipeline Scan, the Sdandbox scan runs in early stages of your code. It's puprose is to scan the full application and rate the findings according to the profile's policy. This will allow you to see findings that need to be fixed in order to achieve policy compliance later one.  
   
 3. Policy Scan  
